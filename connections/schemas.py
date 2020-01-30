@@ -14,14 +14,13 @@ class BaseModelSchema(ma.ModelSchema):
 class PersonSchema(BaseModelSchema):
     email = fields.Email(required=True)
 
-
     class Meta:
         model = Person
 
 
 class ConnectionSchema(BaseModelSchema):
-    from_person_id = fields.Integer()
-    to_person_id = fields.Integer()
+    from_person_id = fields.Integer(required=True)
+    to_person_id = fields.Integer(required=True)
     connection_type = EnumField(ConnectionType)
 
     class Meta:
