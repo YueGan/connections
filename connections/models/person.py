@@ -11,20 +11,16 @@ class Person(Model, CRUDMixin, CreatedUpdatedMixin):
     connections = db.relationship('Connection', foreign_keys='Connection.from_person_id')
 
     def get_connections(self, target, type):
-    	return [
-    		connection.to_person_id
-    		for connection in self.connections 
-    			if connection.connection_type == type
-    		]
+        return [
+            connection.to_person_id
+            for connection in self.connections if connection.connection_type == type
+            ]
 
     def mutual_friends(self, target):
 
-    	friend_id = self.get_connections(self, ConnectionType.friend)
-    	target_friend_id = self.get_connections(target, ConnectionType.friend)
+        friend_id = self.get_connections(self, ConnectionType.friend)
+        target_friend_id = self.get_connections(target, ConnectionType.friend)
 
-    	mutual_friends_id = list(set(friend_id) & set(target_friend_id))
+        mutual_friends_id = list(set(friend_id) & set(target_friend_id))
 
-    	return db.session.query(Person).filter(Person.id.in_(mutual_friends_id)).all()
-
-
-
+        return db.session.query(Person).filter(Person.id.in_(mutual_friends_id)).all()
