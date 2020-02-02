@@ -41,12 +41,11 @@ def test_can_create_connection(db, testapp):
 @pytest.mark.parametrize('field, value, error_message', [
     pytest.param('from_person_id', None, 'Field may not be null.', id='missing from personn id'),
     pytest.param('to_person_id', None, 'Field may not be null.', id='missing to person id'),
-    pytest.param('from_person_id', "String", 'Not a valid integer.',
+    pytest.param('from_person_id', 'String', 'Not a valid integer.',
                  id='missing from personn id'),
-    pytest.param('to_person_id', "String", 'Not a valid integer.', id='missing to person id'),
-    pytest.param('connection_type', 'not_friend', 'Invalid enum member not_friend', id='invalid connection type',
-                 # marks=pytest.mark.xfail
-                 ),
+    pytest.param('to_person_id', 'String', 'Not a valid integer.', id='missing to person id'),
+    pytest.param('connection_type', 'not_friend', 'Invalid enum member not_friend',
+                 id='invalid connection type')
 ])
 def test_create_connection_validate(db, testapp, connection_payload, field, value, error_message):
     connection_payload[field] = value

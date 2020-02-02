@@ -19,17 +19,17 @@ def get_people(args):
 
     order_query = None
     if(args):
-        if(args['sort'] == "-created_at"):
+        if(args['sort'] == '-created_at'):
             order_query = Person.created_at.desc()
-        elif(args['sort'] == "created_at"):
+        elif(args['sort'] == 'created_at'):
             order_query = Person.created_at
-        elif(args['sort'] == "-first_name"):
+        elif(args['sort'] == '-first_name'):
             order_query = Person.first_name.desc()
-        elif(args['sort'] == "first_name"):
+        elif(args['sort'] == 'first_name'):
             order_query = Person.first_name
-        elif(args['sort'] == "-last_name"):
+        elif(args['sort'] == '-last_name'):
             order_query = Person.last_name.desc()
-        elif(args['sort'] == "last_name"):
+        elif(args['sort'] == 'last_name'):
             order_query = Person.last_name
 
     people = Person.query.order_by(order_query).all()

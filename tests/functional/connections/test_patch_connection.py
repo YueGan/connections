@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
 import pytest
-from tests.factories import PersonFactory, ConnectionFactory
+from tests.factories import ConnectionFactory
 
 from connections.models.connection import Connection
 
@@ -18,7 +18,7 @@ def test_can_patch_connection(db, testapp, connection_payload):
     db.session.commit()
 
     connection_id = connection.id
-    res = testapp.patch(f"connections/{connection_id}", json=connection_payload)
+    res = testapp.patch(f'connections/{connection_id}', json=connection_payload)
 
     assert res.status_code == HTTPStatus.OK
 
@@ -32,8 +32,7 @@ def test_can_patch_connection(db, testapp, connection_payload):
 
 @pytest.mark.parametrize('field, value, error_message', [
     pytest.param('connection_type', None, 'Field may not be null.', id='missing from personn id'),
-    pytest.param('connection_type', 'not_friend', "Invalid value.", id='invalid connection type',
-                 # marks=pytest.mark.xfail
+    pytest.param('connection_type', 'not_friend', 'Invalid value.', id='invalid connection type',
                  ),
 ])
 def test_create_connection_validate(db, testapp, connection_payload, field, value, error_message):
